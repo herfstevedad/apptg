@@ -7,7 +7,7 @@ import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
 
 function App() {
-
+  const LastData = retrieveLaunchParams().tgWebAppData?.auth_date;
   const [isloading, setisLoading] = useState(true);
 
   useEffect (() => {
@@ -46,6 +46,7 @@ function App() {
   return (
     <div className="app">
       <Balance />
+      <p> {retrieveLaunchParams().tgWebAppData?.auth_date.toString()} </p>
     </div>
   );
 }
