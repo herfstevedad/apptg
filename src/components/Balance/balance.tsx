@@ -1,7 +1,7 @@
 // Balance.tsx
 import { useState, useEffect, useRef } from 'react';
 import './Balance.css';
-import { db, doc, setDoc, onSnapshot } from '../back/fireBase'; // Импортируем из firestore
+import { db, doc, setDoc, onSnapshot } from '../back/fireBase'; // Импортируем из fireBase
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 function Balance() {
