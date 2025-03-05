@@ -7,7 +7,7 @@ interface UserData {
     createdAt: string;
   }
 
-export async function addUserIfNotExists(userId: number, userData: UserData) {
+export async function addUserIfNotExists(userId: number, userData: UserData): Promise<void> {
     try {
       // Ссылка на документ пользователя
       const userRef = doc(db, 'users', userId.toString());

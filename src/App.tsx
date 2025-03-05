@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
-import Loader from './front/loader/loader'
+import Loader from './components/loader/loader'
 import Balance from './components/Balance/balance'
 import './App.css'
-import { addUserIfNotExists } from './back/addUser'
+import { addUserIfNotExists } from './components/back/addUser'
 
 function App() {
 

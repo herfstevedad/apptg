@@ -1,16 +1,36 @@
 // Balance.tsx
 import { useState, useEffect, useRef } from 'react';
-import './balance.css'; // Подключаем стили
+import './Balance.css';
+import { db, doc, setDoc, onSnapshot } from '../back/fireBase'; // Импортируем из firestore
+import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 function Balance() {
   const [balance, setBalance] = useState(0); // Баланс игрока
   const incomeRef = useRef<HTMLDivElement[]>([]); // Ссылка на элементы анимации дохода
+  const userId = retrieveLaunchParams().tgWebAppData?.user?.id; // ID пользователя (замените на реальный ID)
 
-  // Функция для добавления пассивного дохода
   useEffect(() => {
+    const userDocRef = doc(db, `users/${userId}`); // Создаем ссылку на документ
+
+    // Подписываемся на изменения баланса в Firestore
+    onSnapshot(userDocRef, (docSnapshot) => {
+      const data = docSnapshot.data();
+      if (data && data.balance !== undefined) {
+        setBalance(data.balance); // Обновляем баланс из Firestore
+      }
+    });
+
+    // Пассивный доход каждую секунду
     const interval = setInterval(() => {
-      setBalance((prevBalance) => prevBalance + 1); // Увеличиваем баланс на 1 каждую секунду
-      addIncomeAnimation('+1'); // Добавляем анимацию дохода
+      setBalance((prevBalance) => {
+        const newBalance = prevBalance + 1;
+
+        // Обновляем баланс в Firestore
+        setDoc(userDocRef, { balance: newBalance }, { merge: true });
+
+        addIncomeAnimation('+1'); // Добавляем анимацию дохода
+        return newBalance;
+      });
     }, 1000);
 
     return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
