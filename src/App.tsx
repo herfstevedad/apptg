@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { retrieveLaunchParams, init } from '@telegram-apps/sdk'
+import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 import Loader from './front/loader/loader'
 import './App.css'
+import addUserIfNotExists from './back/addUser'
 
 function App() {
 
@@ -11,6 +12,23 @@ function App() {
   useEffect (() => {
     const initApp = async () => {
       try {
+
+        // Получаем данные пользователя Telegram
+        const UserID = retrieveLaunchParams().tgWebAppData?.user?.id;
+        const UserName = retrieveLaunchParams().tgWebAppData?.user?.username;
+
+        if (UserID) {
+            // Создаем объект данных пользователя
+          const userData = {
+            username: UserName || 'Unknown',
+            createdAt: new Date().toISOString(),
+          };
+
+           // Добавляем пользователя, если его нет
+          await addUserIfNotExists(UserID, userData);
+        } else {
+          console.warn('User Data is not available')
+        }
 
       } finally {
         setisLoading(false);
