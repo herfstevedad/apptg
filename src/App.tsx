@@ -7,11 +7,15 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect (() => {
-    try {
-      init();
-    } finally {
-      setLoading(false);
+    const initApp = async () => {
+      try {
+
+      } finally {
+        setLoading(false);
+      }
     }
+
+    initApp();
   }, [] )
 
   if (loading) {
