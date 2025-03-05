@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from 'react'
-import { retrieveLaunchParams, init, miniApp } from '@telegram-apps/sdk'
+import { useEffect } from 'react'
+import { retrieveLaunchParams, init } from '@telegram-apps/sdk'
 import './App.css'
 
 function App() {
   useEffect (() => {
-    const tg = retrieveLaunchParams();
-    
-    const telegramUserID = tg.tgWebAppData?.user?.id;
-    const telegramUserName = tg.tgWebAppData?.user?.username;
-
 
     init();
 
