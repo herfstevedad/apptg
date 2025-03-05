@@ -1,5 +1,5 @@
 // Balance.tsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Balance.css'; // Подключаем стили
 
 function Balance() {
@@ -35,7 +35,7 @@ function Balance() {
 
   return (
     <div className="balance-container">
-      <h1>Баланс: {balance} монет</h1>
+      <h1>{balance}$</h1>
     </div>
   );
 }
