@@ -1,14 +1,22 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { retrieveLaunchParams, init } from '@telegram-apps/sdk'
 import './App.css'
 
 function App() {
+
+  const [loading, setLoading] = useState(true);
+
   useEffect (() => {
-
-    init();
-
+    try {
+      init();
+    } finally {
+      setLoading(false);
+    }
   }, [] )
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="app">
