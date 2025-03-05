@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react'
 import { retrieveLaunchParams, init } from '@telegram-apps/sdk'
+
+import Loader from './front/loader/loader'
 import './App.css'
 
 function App() {
 
-  const [loading, setLoading] = useState(true);
+  const [isloading, setisLoading] = useState(true);
 
   useEffect (() => {
     const initApp = async () => {
       try {
 
       } finally {
-        setLoading(false);
+        setisLoading(false);
       }
     }
 
     initApp();
   }, [] )
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isloading) {
+    return <Loader />
   }
 
   return (
