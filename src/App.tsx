@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 import Loader from './front/loader/loader'
+import Balance from './components/Balance/balance'
 import './App.css'
 import { addUserIfNotExists } from './back/addUser'
 
@@ -44,9 +45,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>Welcome</h1>
-      <p>User ID: {retrieveLaunchParams().tgWebAppData?.user?.id}</p>
-      <p>Username: {retrieveLaunchParams().tgWebAppData?.user?.username}</p>
+      <Balance />
     </div>
   );
 }
