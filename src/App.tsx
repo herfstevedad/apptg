@@ -7,7 +7,6 @@ import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
 
 function App() {
-  const LastData = retrieveLaunchParams().tgWebAppData?.auth_date;
   const [isloading, setisLoading] = useState(true);
 
   useEffect (() => {
