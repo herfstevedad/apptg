@@ -1,12 +1,12 @@
 /* Balance.css */
 .balance-container {
-    text-align: start;
-    margin-top: 0px;
+    text-align: center;
+    margin-top: 50px;
   }
   
   .income-animation {
     position: absolute;
-    top: 20%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 18px;
