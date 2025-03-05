@@ -3,7 +3,7 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 import Loader from './front/loader/loader'
 import './App.css'
-import addUserIfNotExists from './back/addUser'
+import { addUserIfNotExists } from './back/addUser'
 
 function App() {
 
