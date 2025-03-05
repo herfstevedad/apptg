@@ -29,7 +29,10 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 h1 {
