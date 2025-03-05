@@ -1,6 +1,6 @@
 // Balance.tsx
 import { useState, useEffect, useRef } from 'react';
-import './Balance.css'; // Подключаем стили
+import './balance.css'; // Подключаем стили
 
 function Balance() {
   const [balance, setBalance] = useState(0); // Баланс игрока
