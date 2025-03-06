@@ -5,6 +5,10 @@ import Loader from './components/loader/loader'
 import Balance from './components/Balance/balance'
 import ShopButton from './components/shop/shopButton';
 import ShopModal from './components/shop/shopModel';
+import RaitingButton from './components/raiting/raitingButton';
+import RaitingModal from './components/raiting/raitingModal';
+
+
 import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
 
@@ -12,6 +16,8 @@ function App() {
   const [isloading, setisLoading] = useState(true);
 
   const [isShopOpen, setIsShopOpen] = useState(false);
+  const [isRaitingOpen, setIsRaitingOpen] = useState(false);
+
 
   useEffect (() => {
     const initApp = async () => {
@@ -51,9 +57,11 @@ function App() {
       <Balance /> 
       <div className="bottom-buttons">
         <ShopButton onClick={() => setIsShopOpen(true)} />
+        <RaitingButton onClick={() => setIsRaitingOpen(true)} />
       </div>
 
       {isShopOpen && <ShopModal onClose={() => setIsShopOpen(false)} />}
+      {isRaitingOpen && <RaitingModal onClose={() => setIsRaitingOpen(false)} />}
     </div>
   );
 }
