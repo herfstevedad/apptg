@@ -29,10 +29,3 @@
 .bottom-buttons button:hover {
   background: #e0e0e0;
 }
-
-button {
-  outline: none;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
