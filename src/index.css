@@ -33,7 +33,11 @@ body {
   user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
-  background: linear-gradient(#FFFF99, transparent)
+  background: linear-gradient(to top, #FFFF99, transparent),
+              radial-gradient(
+                circle top center,
+                #FF9966
+              )
 }
 
 h1 {
