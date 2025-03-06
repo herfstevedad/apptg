@@ -56,18 +56,20 @@ function App() {
     <div className="app">
       <Balance /> 
 
+      {/* Контейнер кнопок внизу */}
       <div className="bottom-buttons">
         <ShopButton onClick={() => setIsShopOpen(true)} />
         <RaitingButton onClick={() => setIsRaitingOpen(true)} />
       </div>
 
-      <ShopModal
-        isOpen={isShopOpen}
-        onClose={() => setIsShopOpen(false)}
+      {/* Модальные окна */}
+      <ShopModal 
+        isOpen={isShopOpen} 
+        onClose={() => setIsShopOpen(false)} 
       />
-      <RaitingModal
-        isOpen={isRaitingOpen}
-        onClose={() => setIsRaitingOpen(false)}
+      <RaitingModal 
+        isOpen={isRaitingOpen} 
+        onClose={() => setIsRaitingOpen(false)} 
       />
     </div>
   );
