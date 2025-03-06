@@ -1,31 +1,32 @@
 /* RatingModal/styles.css */
 .modal {
     position: fixed;
-    top: 0;
+    bottom: -100%;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: all 0.3s ease-in-out;
+    display: none;
   }
   
-  .modal-content {
-    background: white; /* Белый фон */
+  .modal.active {
+    bottom: 0;
+    display: flex !important;
+  }
+  
+  .modal .modal_content {
+    background: white;
     padding: 20px;
     border-radius: 8px;
     max-width: 80%;
     text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень для выделения */
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(50%);
   }
   
-  .modal-content h2 {
-    margin-bottom: 15px;
-  }
-  
-  .modal-content p {
-    margin: 10px 0;
+  .modal.active .modal_content {
+    transform: translateY(0);
   }
   
   .modal button {

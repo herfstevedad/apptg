@@ -55,14 +55,15 @@ function App() {
   return (
     <div className="app">
       <Balance /> 
-      <div className="bottom-buttons">
-        <ShopButton onClick={() => setIsShopOpen(true)} />
-        <RaitingButton onClick={() => setIsRaitingOpen(true)} />
+      <ShopModal
+        isOpen={isShopOpen}
+        onClose={() => setIsShopOpen(false)}
+      />
+      <RaitingModal
+        isOpen={isRaitingOpen}
+        onClose={() => setIsRaitingOpen(false)}
+      />
       </div>
-
-      {isShopOpen && <ShopModal onClose={() => setIsShopOpen(false)} />}
-      {isRaitingOpen && <RaitingModal onClose={() => setIsRaitingOpen(false)} />}
-    </div>
   );
 }
 
