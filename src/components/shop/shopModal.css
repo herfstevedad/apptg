@@ -7,9 +7,10 @@
     background: rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease-in-out;
     display: none;
-    justify-content: center; /* Центрирование по горизонтали */
+    justify-content: flex-end; /* Центрирование по горизонтали */
     align-items: flex-end; /*  Выравнивание по низу */
     z-index: 100; /* Поверх всех других элементов */
+    overflow: hidden;
   }
 
   .modal.open {
@@ -17,7 +18,7 @@
   }
   
   .modal-content {
-    background: white;
+    background-color: white;
     width: 95%; /* Почти вся ширина */
     height: 50%; /* Половина высоты экрана */
     border-radius: 15px 15px 0 0; /* Скругление только сверху */
