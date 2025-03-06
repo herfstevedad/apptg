@@ -1,35 +1,43 @@
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: black;
-  }
-  
-  .modal-content {
-    background: white; /* Белый фон */
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 80%;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень для выделения */
-  }
-  
-  .modal button {
-    margin-top: 15px;
-    padding: 8px 16px;
-    background: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .modal button:hover {
-    background: #0056b3;
-  }
+  position: fixed;
+  bottom: -100%; /* Начальное положение: ниже экрана */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease-in-out;
+  display: none; /* По умолчанию скрыто */
+}
+
+.modal.active {
+  bottom: 0;
+  display: flex !important; /* Перебиваем состояние через !important */
+}
+
+.modal .modal_content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 80%;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+  transform: translateY(50%);
+}
+
+.modal.active .modal_content {
+  transform: translateY(0);
+}
+
+.modal button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal button:hover {
+  background: #0056b3;
+}
