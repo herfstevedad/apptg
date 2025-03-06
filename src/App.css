@@ -10,7 +10,6 @@
   bottom: 0;
   left: 0;
   width: 100%; /* Занимает всю ширину экрана */
-  background: white;
   padding: 10px 0;
   display: flex;
   justify-content: space-between; /* Распределяем кнопки по краям */
@@ -21,7 +20,7 @@
   margin: 0 5px;
   padding: 12px 0;
   border: none;
-  background: #f0f0f0;
+  background: #ffffff;
   cursor: pointer;
   font-size: 16px;
   text-align: center;
