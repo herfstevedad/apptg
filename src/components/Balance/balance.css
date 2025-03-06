@@ -1,8 +1,9 @@
 /* Balance.css */
 .balance-container {
-    position: absolute;
-    bottom: 60%;
-    left: 25%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Центрирование */
   }
   
   
