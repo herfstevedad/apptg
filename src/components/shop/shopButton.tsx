@@ -1,5 +1,4 @@
 // src/components/ShopButton.js
-import { useState } from 'react';
 import './shopButton.css'
 
 interface ShopButtonProps {
