@@ -3,11 +3,15 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 import Loader from './components/loader/loader'
 import Balance from './components/Balance/balance'
+import ShopButton from './components/shop/shopButton';
+import ShopModal from './components/shop/shopModel';
 import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
 
 function App() {
   const [isloading, setisLoading] = useState(true);
+
+  const [isShopOpen, setIsShopOpen] = useState(false);
 
   useEffect (() => {
     const initApp = async () => {
@@ -44,8 +48,12 @@ function App() {
 
   return (
     <div className="app">
-      <Balance />
-      <p> {retrieveLaunchParams().tgWebAppData?.auth_date.toString()} </p>
+      <Balance /> 
+      <div className="bottom-buttons">
+        <ShopButton onClick={() => setIsShopOpen(true)} />
+      </div>
+
+      {isShopOpen && <ShopModal onClose={() => setIsShopOpen(false)} />}
     </div>
   );
 }
