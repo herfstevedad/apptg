@@ -1,5 +1,5 @@
-// RatingModal/RatingModal.tsx
-import React, { useState, useEffect } from 'react';
+// src/components/RatingModal/RatingModal.tsx
+import React from 'react';
 import './raitingModal.css';
 
 interface RatingModalProps {
@@ -8,24 +8,10 @@ interface RatingModalProps {
 }
 
 const RatingModal: React.FC<RatingModalProps> = ({ onClose, isOpen }) => {
-  const [isAnimated, setIsAnimated] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      const timeout = setTimeout(() => setIsAnimated(true), 100);
-      return () => clearTimeout(timeout);
-    } else {
-      setIsAnimated(false);
-    }
-  }, [isOpen]);
-
-  return (
-    <div
-      className={`modal ${isAnimated ? 'active' : ''}`}
-      style={{ display: isOpen ? 'flex' : 'none' }}
-    >
-      <div className="modal_content">
-        <h2 >Рейтинг</h2>
+    return (
+    <div className={`modal ${isOpen ? 'active' : ''}`}>
+      <div className="modal-content">
+        <h2>Рейтинг</h2>
         <p>Содержимое рейтинга...</p>
         <button onClick={onClose}>Закрыть</button>
       </div>
