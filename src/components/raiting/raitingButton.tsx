@@ -1,10 +1,10 @@
 import './raitingButton.css'
 
-interface RatingButtonProps {
+interface RaitingButtonProps {
     onClick: React.MouseEventHandler<HTMLButtonElement>;
   }
   
-  const RatingButton: React.FC<RatingButtonProps> = ({ onClick }) => {
+  const RaitingButton: React.FC<RaitingButtonProps> = ({ onClick }) => {
     return (
       <button 
         className="bottom-button"
@@ -15,4 +15,4 @@ interface RatingButtonProps {
     );
   };
   
-  export default RatingButton;
+  export default RaitingButton;

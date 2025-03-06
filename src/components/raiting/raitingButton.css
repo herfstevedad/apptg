@@ -1,11 +1,17 @@
 .bottom-button {
-    padding: 12px 0;
-    border: none;
-    background: #f0f0f0;
-    cursor: pointer;
+    border-radius: 12px;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    opacity: 0.8;
+    transition: all 0.2s ease;
+    color: white;
     font-size: 16px;
+    padding: 12px 0;
   }
   
   .bottom-button:hover {
-    background: #e0e0e0;
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
+  

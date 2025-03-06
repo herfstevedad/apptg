@@ -6,28 +6,32 @@
 }
 
 .bottom-buttons {
-  position: fixed; /* Фиксируем позицию */
+  position: fixed;
   bottom: 0;
   left: 0;
-  width: 100%; /* Занимает всю ширину экрана */
-  background: white;
-  padding: 10px 0;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  padding: 10px 20px; /* Добавили отступы по бокам */
+  background: transparent; /* Убираем фон контейнера */
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1); /* Легкая тень сверху */
   display: flex;
-  justify-content: space-between; /* Распределяем кнопки по краям */
+  justify-content: space-between;
 }
 
 .bottom-buttons button {
-  flex: 1; /* Каждая кнопка занимает равную часть */
-  margin: 0 5px;
+  flex: 1;
   padding: 12px 0;
-  border: none;
-  background: #f0f0f0;
-  cursor: pointer;
   font-size: 16px;
   text-align: center;
+  color: white; /* Цвет текста */
 }
 
 .bottom-buttons button:hover {
   background: #e0e0e0;
+}
+
+button {
+  outline: none;
+  border: none;
+  background: none;
+  cursor: pointer;
 }

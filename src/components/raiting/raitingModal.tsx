@@ -1,10 +1,10 @@
 import './raitingModal.css'
 
-interface RatingModalProps {
+interface RaitingModalProps {
     onClose: () => void; // Тип для функции закрытия
   }
 
-const RatingModal: React.FC<RatingModalProps> = ({ onClose }) => {
+const RaitingModal: React.FC<RaitingModalProps> = ({ onClose }) => {
   return (
     <div className="modal">
       <div className="modal-content">
@@ -16,4 +16,4 @@ const RatingModal: React.FC<RatingModalProps> = ({ onClose }) => {
   );
 };
 
-export default RatingModal;
+export default RaitingModal;
