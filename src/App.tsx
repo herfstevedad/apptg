@@ -3,9 +3,9 @@ import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 import Loader from './components/loader/loader'
 import Balance from './components/Balance/balance'
-import ShopButton from './components/shop/shopButton';
+
 import ShopModal from './components/shop/shopModel';
-import RaitingButton from './components/raiting/raitingButton';
+
 import RaitingModal from './components/raiting/raitingModal';
 
 
