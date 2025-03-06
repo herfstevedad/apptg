@@ -7,25 +7,38 @@
     background: rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease-in-out;
     display: none;
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: flex-end; /*  Выравнивание по низу */
+    z-index: 100; /* Поверх всех других элементов */
   }
-  
-  .modal.active {
+
+  .modal.open {
     display: flex;
   }
   
   .modal-content {
     background: white;
+    width: 95%; /* Почти вся ширина */
+    height: 50%; /* Половина высоты экрана */
+    border-radius: 15px 15px 0 0; /* Скругление только сверху */
     padding: 20px;
-    border-radius: 8px;
-    max-width: 80%;
-    text-align: center;
-    position: absolute;
-    top: 50%; /* Вертикальное центрирование */
-    left: 50%; /* Горизонтальное центрирование */
-    transform: translate(-50%, -100%); /* Начальное положение: смещено вниз */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
   }
   
-  .modal.active .modal-content {
-    transform: translate(-50%, -50%); /* Остановка посередине */
+  /* Анимация выезжания */
+  .modal-content.slide-in {
+    transform: translateY(0);
+  }
+  
+  /* Анимация скрытия */
+  .modal-content.slide-out{
+    transform: translateY(100%);
+  }
+
+  .modal.active {
+    display: flex;
   }
