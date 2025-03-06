@@ -12,7 +12,6 @@
   width: 100%; /* Занимает всю ширину экрана */
   background: white;
   padding: 10px 0;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between; /* Распределяем кнопки по краям */
 }
