@@ -27,7 +27,8 @@
     flex-direction: column;
     align-items: center;
     transition: transform 0.3s ease-in-out;
-    transform: translateY(100%);
+    transform: translateX(100%);
+    max-width: 100%;
   }
   
   /* Анимация выезжания */
@@ -37,7 +38,7 @@
   
   /* Анимация скрытия */
   .modal-content.slide-out{
-    transform: translateY(100%);
+    transform: translateX(100%);
   }
 
   .modal.active {
