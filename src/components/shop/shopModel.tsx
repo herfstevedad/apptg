@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './shopModal.css';
 
 
@@ -8,7 +8,7 @@ interface ShopModalProps {
   }
   
   const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
-    const [isAnimated, setIsAnimated] = useState(false);
+    const [isAnimated] = useState(false);
 
 
     return (
