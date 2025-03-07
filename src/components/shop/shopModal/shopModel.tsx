@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
 import ItemCard from '../itemCard/itemCard';
 import shopItemsRaw from '../../data/shopItems.json'
-import { ShopItem } from '../../../types/shopItems';
+import { ShopItem } from '../../../types/ShopItems';
 
 const shopItems: ShopItem[] = shopItemsRaw;
 
