@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
 import ItemCard from '../itemCard/itemCard';
-import shopItems from '../../data/shopItems.json'
+import shopItems from '../../../../public/data/shopItems.json'
 
 
 
