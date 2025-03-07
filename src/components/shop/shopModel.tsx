@@ -1,7 +1,6 @@
 // ShopModal/ShopModal.tsx
 import React from 'react';
 import styles from './shopModal.module.css';
-import './shopModal.css';
 
 interface ShopModalProps {
   onClose: () => void;
