@@ -33,16 +33,6 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
       alert(`Вы купили "${items.find(item => item.id === itemID)?.name}"`);
     }
 
-    if (items.length === 0 && isOpen) {
-      return (
-        <div className={"modal"}>
-          <div className={"modal_content"}>
-            <p>Загрузка товаров...</p>
-          </div>
-        </div>
-      );
-    }
-
     useEffect (( ) => {
 
         const handleClickOutside = (event: MouseEvent) => {
