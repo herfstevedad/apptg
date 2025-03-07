@@ -2,7 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
 import ItemCard from '../itemCard/itemCard';
-import shopItems from '../../data/shopItems.json'
+import shopItemsRaw from '../../data/shopItems.json'
+import { ShopItem } from '../../../types/shopItems';
+
+const shopItems: ShopItem[] = shopItemsRaw;
+
 
 interface ShopModalProps {
   onClose: () => void;
@@ -11,7 +15,7 @@ interface ShopModalProps {
 
 const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
     const modalRef = useRef<HTMLDivElement>(null);
-    const [items, setItems] = useState<any[]>([]);
+    const [items, setItems] = useState<ShopItem[]>([]);
 
     useEffect(() => {
         if (isOpen) {
