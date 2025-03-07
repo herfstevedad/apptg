@@ -1,6 +1,7 @@
 // ShopModal/ShopModal.tsx
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
+import ItemCard from '../itemCard/itemCard';
 
 interface ShopModalProps {
   onClose: () => void;
@@ -9,6 +10,23 @@ interface ShopModalProps {
 
 const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
     const modalRef = useRef<HTMLDivElement>(null);
+    const [items, setItems] = useState<any[]>([]);
+
+    useEffect(() => {
+        if (isOpen) {
+          fetch('./data/shopItems.json') // Убедитесь, что путь правильный
+        .then((res) => res.json())
+        .then((data) => setItems(data))
+        .catch((error) => console.error('Ошибка загрузки данных:', error));
+        }
+    }, [isOpen]);
+
+    const handleBuy = (itemID: number) => {
+      console.log(`Покупка товара: ${itemID}`);
+      alert(`Вы купили "${items.find(item => item.id === itemID)?.name}"`);
+    }
+
+
 
     useEffect (( ) => {
 
@@ -48,7 +66,17 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
           aria-label="Закрыть"
         />
         <h2>Магазин</h2>
-        <p>Содержимое магазина...</p>
+
+        <div className={"items_container"}>
+          {items.map((item) => (
+            <ItemCard 
+              key={item.id} 
+              {...item} 
+              onBuy={() => handleBuy(item.id)} 
+            />
+          ))}
+        </div>
+
       </div>
     </div>
   );
