@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
 import ItemCard from '../itemCard/itemCard';
-
+import { ShopItem } from '../../../types/shopItems';
 
 
 interface ShopModalProps {
@@ -15,12 +15,23 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
     const [items, setItems] = useState<any[]>([]);
 
     useEffect(() => {
-        if (isOpen) {
-          fetch('/data/shopItems.json') // Путь относительно public/
-          .then((res) => res.json())
-          .then((data) => setItems(data))
-          .catch((error) => console.error('Ошибка загрузки данных:', error));
-        }
+      if (isOpen) {
+        fetch('/data/shopItems.json')
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error('Не удалось загрузить данные');
+            }
+            return res.json();
+          })
+          .then((data: ShopItem[]) => {
+            console.log('Загруженные данные:', data); // Логирование данных
+            setItems(data);
+          })
+          .catch((error) => {
+            console.error('Ошибка загрузки данных:', error);
+            setItems([]); // Установите пустой массив, если данные недоступны
+          });
+      }
     }, [isOpen]);
 
     const handleBuy = (itemID: number) => {
@@ -28,7 +39,15 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
       alert(`Вы купили "${items.find(item => item.id === itemID)?.name}"`);
     }
 
-
+    if (items.length === 0 && isOpen) {
+      return (
+        <div className={"modal"}>
+          <div className={"modal_content"}>
+            <p>Загрузка товаров...</p>
+          </div>
+        </div>
+      );
+    }
 
     useEffect (( ) => {
 
