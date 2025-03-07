@@ -13,7 +13,11 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
     useEffect (( ) => {
 
         const handleClickOutside = (event: MouseEvent) => {
-            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+            if (
+                modalRef.current && 
+                !modalRef.current.contains(event.target as Node) &&
+                !(event.target instanceof HTMLButtonElement)
+            ) {
                 onClose();
             }
             };
