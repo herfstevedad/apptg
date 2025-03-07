@@ -1,5 +1,5 @@
 // src/components/RatingModal/RatingModal.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import './raitingModal.css';
 
 interface RatingModalProps {
@@ -8,13 +8,39 @@ interface RatingModalProps {
 }
 
 const RatingModal: React.FC<RatingModalProps> = ({ onClose, isOpen }) => {
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    useEffect (( ) => {
+
+        const handleClickOutside = (event: MouseEvent) => {
+            if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
+                onClose();
+            }
+            };
+
+        if (isOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        
+    }, [isOpen, onClose]);
+
     return (
-    <div className={`modal ${isOpen ? 'active' : ''}`}>
-      <div className="modal-content">
-        <button 
-            className={"close-button"} 
-            onClick={onClose} 
-            aria-label="Закрыть"
+        <div 
+        className={`modal ${isOpen ? 'active' : ''}`}
+        onClick={(e) => e.stopPropagation()}
+    >
+      <div
+       className="modal-content"
+       ref={modalRef}
+       >
+      <button 
+          className={"close-button"} 
+          onClick={onClose} 
+          aria-label="Закрыть"
         />
         <h2>Рейтинг</h2>
         <p>Содержимое рейтинга...</p>
