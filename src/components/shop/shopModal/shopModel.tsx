@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
 import ItemCard from '../itemCard/itemCard';
-import { ShopItem } from '../../../types/shopItems';
 
 
 interface ShopModalProps {
@@ -17,20 +16,15 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
     useEffect(() => {
       if (isOpen) {
         fetch('/data/shopItems.json')
-          .then((res) => {
-            if (!res.ok) {
-              throw new Error('Не удалось загрузить данные');
-            }
-            return res.json();
-          })
-          .then((data: ShopItem[]) => {
-            console.log('Загруженные данные:', data); // Логирование данных
-            setItems(data);
-          })
-          .catch((error) => {
-            console.error('Ошибка загрузки данных:', error);
-            setItems([]); // Установите пустой массив, если данные недоступны
-          });
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('Загруженные данные:', data);
+          setItems(data); // Данные сохраняются без типизации
+        })
+        .catch((error) => {
+          console.error('Ошибка загрузки данных:', error);
+          setItems([]); // Установите пустой массив при ошибке
+        });
       }
     }, [isOpen]);
 
