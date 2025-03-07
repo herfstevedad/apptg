@@ -15,16 +15,27 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
 
     useEffect(() => {
       if (isOpen) {
-        fetch('/data/shopItems.json')
-        .then((res) => res.json())
-        .then((data) => {
-          console.log('Загруженные данные:', data);
-          setItems(data); // Данные сохраняются без типизации
-        })
-        .catch((error) => {
-          console.error('Ошибка загрузки данных:', error);
-          setItems([]); // Установите пустой массив при ошибке
-        });
+        if (isOpen) {
+          console.log('Модальное окно магазина открыто. Начинаю загрузку данных...');
+          
+          fetch('/data/shopItems.json')
+            .then((res) => {
+              if (!res.ok) {
+                throw new Error('Не удалось загрузить данные');
+              }
+              return res.json();
+            })
+            .then((data) => {
+              console.log('Данные успешно загружены:', data);
+              setItems(data); // Сохраняем данные в состояние
+            })
+            .catch((error) => {
+              console.error('Ошибка загрузки данных:', error);
+              setItems([]); // Устанавливаем пустой массив при ошибке
+            });
+        } else {
+          console.log('Модальное окно магазина закрыто.');
+        }
       }
     }, [isOpen]);
 
