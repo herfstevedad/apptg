@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './shopModal.css';
 import ItemCard from '../itemCard/itemCard';
+import shopItems from '../../data/shopItems.json'
 
 interface ShopModalProps {
   onClose: () => void;
@@ -14,10 +15,7 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
 
     useEffect(() => {
         if (isOpen) {
-          fetch('/data/shopItems.json') // Убедитесь, что путь правильный
-        .then((res) => res.json())
-        .then((data) => setItems(data))
-        .catch((error) => console.error('Ошибка загрузки данных:', error));
+          setItems(shopItems);
         }
     }, [isOpen]);
 
