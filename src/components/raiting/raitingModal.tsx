@@ -1,6 +1,6 @@
 // src/components/RatingModal/RatingModal.tsx
 import React from 'react';
-import './raitingModal.css';
+import styles from './raitingModal.module.css';
 
 interface RatingModalProps {
   onClose: () => void;
@@ -9,14 +9,18 @@ interface RatingModalProps {
 
 const RatingModal: React.FC<RatingModalProps> = ({ onClose, isOpen }) => {
     return (
-    <div className={`modal ${isOpen ? 'active' : ''}`}>
-      <div className="modal-content">
-        <h2>Рейтинг</h2>
-        <p>Содержимое рейтинга...</p>
-        <button onClick={onClose}>Закрыть</button>
+      <div className={`${styles.modal} ${isOpen ? styles.active : ''}`}>
+        <div className={styles.modal_content}>
+          <button 
+            className={styles.close_button} 
+            onClick={onClose} 
+            aria-label="Закрыть"
+          />
+          <h2>Рейтинг</h2>
+          <p>Содержимое рейтинга...</p>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
 export default RatingModal;
