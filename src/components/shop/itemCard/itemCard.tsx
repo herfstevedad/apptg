@@ -9,10 +9,9 @@ interface ItemProps {
   onBuy: (id: number) => void;
 }
 
-const ItemCard: React.FC<ItemProps> = ({ id, name, price, image, onBuy }) => {
+const ItemCard: React.FC<ItemProps> = ({ id, name, price, onBuy }) => {
   return (
     <div className={"item_card"}>
-      <img src={image} alt={name} className={"item_image"} />
       <h3 className={"item_name"}>{name}</h3>
       <button className={"buy_button"} onClick={() => onBuy(id)}>
         Купить за {price} ₽
