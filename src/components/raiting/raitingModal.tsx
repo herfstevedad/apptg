@@ -12,7 +12,7 @@ const RatingModal: React.FC<RatingModalProps> = ({ onClose, isOpen }) => {
     <div className={`modal ${isOpen ? 'active' : ''}`}>
       <div className="modal-content">
         <button 
-            className={"close_button"} 
+            className={"close-button"} 
             onClick={onClose} 
             aria-label="Закрыть"
         />
