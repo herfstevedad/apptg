@@ -21,6 +21,7 @@
   
   .modal-content {
     background: white;
+    color: #333;
     padding: 20px;
     border-radius: 16px 16px 0 0;
     width: 80%; /* Ширина 80% экрана */
