@@ -1,15 +1,14 @@
-// src/components/HelpButton.tsx
+// src/components/HelpButton/helpButton.tsx
 import React from 'react';
 import './styles.css';
-import { useState } from 'react';
-import LogsModal from '../log/logsModal';
+import LogsModal from '../log/logsModal'; // Импорт модального окна логов
 import { getLogs } from '../../services/logsService';
 
 const HelpButton: React.FC = () => {
-  const [isLogsOpen, setIsLogsOpen] = useState(false);
+  const [isLogsOpen, setIsLogsOpen] = React.useState(false); // Состояние для логов
 
   return (
-    <div>
+    <>
       {/* Кнопка вопросительного знака */}
       <button 
         className={"help_button"} 
@@ -23,9 +22,9 @@ const HelpButton: React.FC = () => {
       <LogsModal 
         isOpen={isLogsOpen} 
         onClose={() => setIsLogsOpen(false)} 
-        logs={getLogs()} // Получаем логи из сервиса
+        logs={getLogs()} 
       />
-    </div>
+    </>
   );
 };
 
