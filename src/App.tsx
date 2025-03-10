@@ -18,6 +18,13 @@ function App() {
   const [isShopOpen, setIsShopOpen] = useState(false);
   const [isRaitingOpen, setIsRaitingOpen] = useState(false);
 
+  // Состояние для логов
+  const [logs, setLogs] = useState<string[]>([]);
+
+  // Функция для добавления логов
+  const addLog = (message: string) => {
+    setLogs((prevLogs) => [...prevLogs, message]);
+  };
 
   useEffect (() => {
     const initApp = async () => {
@@ -66,11 +73,23 @@ function App() {
       <ShopModal 
         isOpen={isShopOpen} 
         onClose={() => setIsShopOpen(false)} 
+        onLog={addLog} // Передаем функцию для логирования
       />
       <RaitingModal 
         isOpen={isRaitingOpen} 
         onClose={() => setIsRaitingOpen(false)} 
+        onLog={addLog} // Передаем функцию для логирования
       />
+
+      {/* Панель логов */}
+      <div className="log-panel">
+        <h3>Логи:</h3>
+        <ul>
+          {logs.map((log, index) => (
+            <li key={index}>{log}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,6 @@ interface ItemProps {
   id: number;
   name: string;
   price: number;
-  image: string;
   onBuy: (id: number) => void;
 }
 
