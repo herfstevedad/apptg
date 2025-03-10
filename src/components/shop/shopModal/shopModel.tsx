@@ -64,18 +64,16 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen}) => {
         onClick={(e) => e.stopPropagation()}
     >
       <div
-       className="modal_content"
+       className="modal-content"
        ref={modalRef}
        >
-        <div className='modal_header'>
-        <h2 className='modal_title'>Магазин</h2>
         <button 
-            className={"close_button"} 
+            className={"close-button"} 
             onClick={onClose} 
             aria-label="Закрыть"
           />
-        </div>
-        
+          <h2>Магазин</h2>
+
         <div className={"items_container"}>
           {items.map((item) => (
             <ItemCard 
