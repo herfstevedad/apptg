@@ -40,7 +40,7 @@ function Balance() {
     const interval = setInterval(() => {
       setTempBalance((prevBalance) => {
         const newBalance = prevBalance + 1;
-        addIncomeAnimation('+1'); // Добавляем анимацию дохода
+        console.log('Обновленный временный баланс:', newBalance);
         return newBalance;
       });
     }, 1000);
