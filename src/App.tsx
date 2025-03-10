@@ -8,7 +8,7 @@ import ShopModal from './components/shop/shopModal/shopModel';
 import RaitingButton from './components/raiting/raitingButton';
 import RaitingModal from './components/raiting/raitingModal';
 import HelpButton from './components/helpButton/helpButton';
-import { addLog, getLogs } from './services/logsService'
+import { addLog } from './services/logsService'
 
 import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
@@ -67,7 +67,7 @@ function App() {
     <div className="app">
       <Balance onLog={addLog}/> 
 o
-      <HelpButton onLog={addLog}/>
+      <HelpButton/>
 
       {/* Контейнер кнопок внизу */}
       <div className="bottom-buttons">
