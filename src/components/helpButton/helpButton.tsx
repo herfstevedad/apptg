@@ -4,7 +4,11 @@ import './styles.css';
 import LogsModal from '../log/logsModal'; // Импорт модального окна логов
 import { getLogs } from '../../services/logsService';
 
-const HelpButton: React.FC = () => {
+interface HelpButtonProps {
+  onOpen: () => void; // Функция для открытия модального окна
+}
+
+const HelpButton: React.FC<HelpButtonProps> = ({ onOpen }) => {
   const [isLogsOpen, setIsLogsOpen] = React.useState(false); // Состояние для логов
 
   return (
@@ -12,7 +16,7 @@ const HelpButton: React.FC = () => {
       {/* Кнопка вопросительного знака */}
       <button 
         className={"help_button"} 
-        onClick={() => setIsLogsOpen(true)} 
+        onClick={onOpen} 
         aria-label="Помощь"
       >
         ?

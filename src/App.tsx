@@ -8,7 +8,8 @@ import ShopModal from './components/shop/shopModal/shopModel';
 import RaitingButton from './components/raiting/raitingButton';
 import RaitingModal from './components/raiting/raitingModal';
 import HelpButton from './components/helpButton/helpButton';
-import { addLog } from './services/logsService'
+import LogsModal from './components/log/logsModal';
+import { addLog, getLogs } from './services/logsService'
 
 import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
@@ -18,6 +19,7 @@ function App() {
 
   const [isShopOpen, setIsShopOpen] = useState(false);
   const [isRaitingOpen, setIsRaitingOpen] = useState(false);
+  const [isLogsOpen, setIsLogsOpen] = useState(false);
 
   // Состояние для логов
   //const [logs, setLogs] = useState<string[]>([]);
@@ -66,8 +68,10 @@ function App() {
   return (
     <div className="app">
       <Balance onLog={addLog}/> 
-      
-      <HelpButton/>
+
+      <HelpButton 
+        onOpen={() => setIsLogsOpen(true)} // Передаем функцию для открытия окна логов
+      />
 
       {/* Контейнер кнопок внизу */}
       <div className="bottom-buttons">
@@ -85,6 +89,11 @@ function App() {
         isOpen={isRaitingOpen} 
         onClose={() => setIsRaitingOpen(false)} 
         //onLog={addLog} // Передаем функцию для логирования
+      />
+      <LogsModal 
+        isOpen={isLogsOpen} 
+        onClose={() => setIsLogsOpen(false)} 
+        logs={getLogs()} // Передаем логи
       />
     </div>
   );
