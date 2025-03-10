@@ -9,7 +9,7 @@ const HelpButton: React.FC = () => {
   const [isLogsOpen, setIsLogsOpen] = useState(false);
 
   return (
-    <>
+    <div>
       {/* Кнопка вопросительного знака */}
       <button 
         className={"help_button"} 
@@ -25,7 +25,7 @@ const HelpButton: React.FC = () => {
         onClose={() => setIsLogsOpen(false)} 
         logs={getLogs()} // Получаем логи из сервиса
       />
-    </>
+    </div>
   );
 };
 
