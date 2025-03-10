@@ -24,9 +24,7 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen}) => {
               //onLog(`Загружено ${data.length} товаров`); // Логируем количество товаров
               setItems(data); // Сохраняем данные в состояние
             })
-            .catch((error) => {
-             // onLog(`Ошибка загрузки данных: ${error.message}`); // Логируем ошибку
-            });
+            //.catch((error) => {onLog(`Ошибка загрузки данных: ${error.message}`); // Логируем ошибку});
         } else {
           //onLog('Магазин закрыт'); // Логируем закрытие магазина
         }
