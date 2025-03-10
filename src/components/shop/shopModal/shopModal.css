@@ -20,7 +20,7 @@
   
   .modal-content {
     background: white;
-    padding: 20px; /* Отступы внутри контента */
+    padding: 16px; /* Отступы внутри контента */
     width: 80%; /* Ширина модального окна */
     max-width: 600px; /* Максимальная ширина для адаптивности */
     height: 40%; /* Высота модального окна */
@@ -35,7 +35,7 @@
     display: flex;
     align-items: center; /* Выравнивание по вертикали */
     justify-content: space-between; /* Расположение заголовка и кнопки */
-    padding: 10px 20px; /* Отступы внутри шапки */
+    padding: 8px 16px; /* Отступы внутри шапки */
     box-sizing: border-box; /* Учитываем padding в размерах */
     background: transparent; /* Прозрачный фон */
     width: 100%; /* Шапка занимает всю ширину контейнера */
@@ -44,7 +44,7 @@
   }
 
   .modal-title {
-    font-size: 20px;
+    font-size: 18px;
     margin: 0; /* Убираем стандартные отступы */
     color: #333;
     text-align: left; /* Текст слева */
@@ -57,8 +57,8 @@
   
   /* Кнопка закрытия (серый крестик) */
   .close-button {
-    width: 30px; /* Фиксированная ширина */
-    height: 30px; /* Фиксированная высота */
+    width: 24px; /* Фиксированная ширина */
+    height: 24px; /* Фиксированная высота */
     background: none;
     border: none;
     cursor: pointer;
@@ -72,7 +72,7 @@
     content: '';
     position: absolute;
     width: 2px;
-    height: 24px;
+    height: 18px;
     background: #888; /* Серый цвет */
     transform-origin: center;
   }
@@ -87,11 +87,11 @@
 
   .items_container {
     display: flex;
-  flex-direction: column; /* Вертикальное размещение */
-  overflow-y: auto; /* Добавляем скролл */
-  max-height: calc(100% - 60px); /* Высота минус высота шапки */
-  width: 100%; /* Занимает всю доступную ширину */
-  padding: 10px;
-  box-sizing: border-box; /* Учитываем padding в размерах */
+    flex-direction: column; /* Вертикальное размещение */
+    overflow-y: auto; /* Добавляем скролл */
+    max-height: calc(100% - 48px); /* Высота минус высота шапки */
+    width: 100%; /* Занимает всю доступную ширину */
+    padding: 10px;
+    box-sizing: border-box; /* Учитываем padding в размерах */
   }
 
