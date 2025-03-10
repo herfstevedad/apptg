@@ -67,9 +67,10 @@
 
   .items_container {
     display: flex;
-    flex-wrap: wrap; /* Размещение карточек в несколько строк */
-    overflow-y: auto; /* Включение вертикального скролла */
-    max-height: 70%; /* Ограничиваем высоту контейнера */
+    flex-direction: column; /* Вертикальное размещение */
+    overflow-y: auto; /* Добавляем скролл */
+    max-height: calc(100% - 60px); /* Ограничиваем высоту (минус шапка) */
+    width: 100%; /* Занимает всю ширину */
     padding: 10px;
   }
 
