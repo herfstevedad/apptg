@@ -14,7 +14,6 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
     const [items, setItems] = useState<any[]>([]);
 
     useEffect(() => {
-      if (isOpen) {
         if (isOpen) {
           console.log('Модальное окно магазина открыто. Начинаю загрузку данных...');
           
@@ -36,7 +35,6 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen }) => {
         } else {
           console.log('Модальное окно магазина закрыто.');
         }
-      }
     }, [isOpen]);
 
     const handleBuy = (itemID: number) => {
