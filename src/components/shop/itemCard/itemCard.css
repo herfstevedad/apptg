@@ -5,7 +5,7 @@
     margin: 10px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 80%; /* Для трех колонок */
+    width: 50%; /* Для трех колонок */
   }
   
   .item_image {
