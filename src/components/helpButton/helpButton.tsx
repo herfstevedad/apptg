@@ -2,7 +2,7 @@
 import React from 'react';
 import './styles.css';
 import { useState } from 'react';
-import LogsModal from '../Logs/LogsModal';
+import LogsModal from '../logs/logsModal';
 import { getLogs } from '../../services/logsService';
 
 const HelpButton: React.FC = () => {
