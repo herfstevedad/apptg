@@ -66,7 +66,7 @@ function App() {
   return (
     <div className="app">
       <Balance onLog={addLog}/> 
-o
+      
       <HelpButton/>
 
       {/* Контейнер кнопок внизу */}
