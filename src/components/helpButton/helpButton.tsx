@@ -3,17 +3,17 @@ import React from 'react';
 import './styles.css';
 
 interface HelpButtonProps {
-  onOpen: () => void; // Функция для открытия модального окна
+  onClick: () => void; // Функция для открытия модального окна
 }
 
-const HelpButton: React.FC<HelpButtonProps> = ({ onOpen }) => {
+const HelpButton: React.FC<HelpButtonProps> = ({ onClick }) => {
 
   return (
     <>
       {/* Кнопка вопросительного знака */}
       <button 
         className={"help_button"} 
-        onClick={onOpen} 
+        onClick={onClick} 
         aria-label="Помощь"
       >
         ?

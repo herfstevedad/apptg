@@ -70,7 +70,7 @@ function App() {
       <Balance onLog={addLog}/> 
 
       <HelpButton 
-        onOpen={() => setIsLogsOpen(true)} // Передаем функцию для открытия окна логов
+        onClick={() => setIsLogsOpen(true)} // Передаем функцию для открытия окна логов
       />
 
       {/* Контейнер кнопок внизу */}
