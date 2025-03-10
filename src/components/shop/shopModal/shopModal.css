@@ -34,16 +34,18 @@
     width: 100%;
     padding: 10px 20px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f9f9f9;
-    border-bottom: 1px solid #ddd;
+    justify-content: space-between; /* Расположение заголовка и кнопки */
+    align-items: center; /* Выравнивание по вертикали */
+    background: transparent; /* Убираем фон */
+    border-bottom: 1px solid #ddd; /* Сохраняем разделительную линию */
   }
 
   .modal-title {
     font-size: 20px;
     margin: 0;
     color: #333;
+    flex-grow: 1; /* Заголовок занимает оставшееся пространство */
+    text-align: left; /* Текст слева */
   }
 
   .modal.active .modal-content {
@@ -52,11 +54,9 @@
   
   /* Кнопка закрытия (серый крестик) */
   .close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 24px;
-    height: 24px;
+    position: relative; /* Не используем absolute */
+    width: 30px; /* Фиксированная ширина */
+    height: 30px; /* Фиксированная высота */
     background: none;
     border: none;
     cursor: pointer;
@@ -82,10 +82,11 @@
 
   .items_container {
     display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    max-height: calc(100% - 60px); /* Минус высота шапки */
-    width: 100%;
-    padding: 10px;
+  flex-direction: column; /* Вертикальное размещение */
+  overflow-y: auto; /* Добавляем скролл */
+  max-height: calc(100% - 60px); /* Высота минус высота шапки */
+  width: 100%; /* Занимает всю доступную ширину */
+  padding: 10px;
+  box-sizing: border-box; /* Учитываем padding в размерах */
   }
 

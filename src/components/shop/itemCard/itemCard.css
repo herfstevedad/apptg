@@ -2,10 +2,11 @@
   background: #f9f9f9;
   border-radius: 8px;
   padding: 16px;
-  margin: 10px 0;
+  margin: 10px 0; /* Отступ только сверху и снизу */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width: 100%;
+  width: 100%; /* Карточки занимают всю ширину */
+  box-sizing: border-box; /* Учитываем padding и border */
 }
   
   .item_image {
