@@ -1,41 +1,70 @@
 // Balance.tsx
 import { useState, useEffect, useRef } from 'react';
-import { doc, setDoc, onSnapshot } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import './balance.css';
 import { db } from '../back/fireBase'; // Импортируем из fireBase
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
 function Balance() {
   const [balance, setBalance] = useState(0); // Баланс игрока
+  const [tempBalance, setTempBalance] = useState(0); // Временный баланс для локального состояния
   const incomeRef = useRef<HTMLDivElement[]>([]); // Ссылка на элементы анимации дохода
   const userId = retrieveLaunchParams().tgWebAppData?.user?.id; // ID пользователя (замените на реальный ID)
 
   useEffect(() => {
-    const userDocRef = doc(db, `users/${userId}`); // Создаем ссылку на документ
+    const fetchInitialBalance = async () => {
+      if (userId) {
+        try {
+          const userDocRef = doc(db, 'users', userId.toString());
+          const docSnapshot = await getDoc(userDocRef);
 
-    // Подписываемся на изменения баланса в Firestore
-    onSnapshot(userDocRef, (docSnapshot) => {
-      const data = docSnapshot.data();
-      if (data && data.balance !== undefined) {
-        setBalance(data.balance); // Обновляем баланс из Firestore
+          if (docSnapshot.exists()) {
+            const data = docSnapshot.data();
+            if (data && data.balance !== undefined) {
+              setBalance(data.balance); // Устанавливаем начальный баланс
+              setTempBalance(data.balance); // Устанавливаем временный баланс
+            }
+          } else {
+            // Если пользователь не существует, создаем его
+            await setDoc(userDocRef, { balance: 0 }, { merge: true });
+          }
+        } catch (error) {
+          console.error('Ошибка загрузки баланса:', error);
+        }
       }
-    });
+    };
+
+    fetchInitialBalance();
 
     // Пассивный доход каждую секунду
     const interval = setInterval(() => {
-      setBalance((prevBalance) => {
+      setTempBalance((prevBalance) => {
         const newBalance = prevBalance + 1;
-
-        // Обновляем баланс в Firestore
-        setDoc(userDocRef, { balance: newBalance }, { merge: true });
-
         addIncomeAnimation('+1'); // Добавляем анимацию дохода
         return newBalance;
       });
     }, 1000);
 
-    return () => clearInterval(interval); // Очищаем интервал при размонтировании компонента
-  }, []);
+    // Обработка закрытия приложения
+    const handleAppClose = async () => {
+      if (userId && tempBalance !== balance) {
+        try {
+          const userDocRef = doc(db, 'users', userId.toString());
+          await setDoc(userDocRef, { balance: tempBalance }, { merge: true });
+          console.log('Баланс успешно сохранен:', tempBalance);
+        } catch (error) {
+          console.error('Ошибка сохранения баланса:', error);
+        }
+      }
+    };
+
+    window.tgWebApp?.onEvent('close', handleAppClose);
+
+    return () => {
+      clearInterval(interval); // Очищаем интервал при размонтировании компонента
+      window.tgWebApp?.offEvent('close', handleAppClose); // Удаляем обработчик события close
+    };
+  }, [userId, balance]);
 
   // Функция для создания анимации дохода
   const addIncomeAnimation = (value: string) => {
