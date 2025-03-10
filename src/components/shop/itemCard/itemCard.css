@@ -2,10 +2,10 @@
     background: #f9f9f9;
     border-radius: 8px;
     padding: 16px;
-    margin: 16px;
+    margin: 10px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: calc(33% - 32px); /* Для трех колонок */
+    width: 100%; /* Для трех колонок */
   }
   
   .item_image {

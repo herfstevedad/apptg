@@ -20,6 +20,10 @@
 }
 
 .modal-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   background: white;
   color: #333;
   padding: 20px;
@@ -32,17 +36,27 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.modal-header {
+  width: 100%; /* Занимает всю ширину */
+  padding: 10px 20px; /* Отступы для удобства */
+  display: flex;
+  justify-content: space-between; /* Расположение заголовка и кнопки */
+  align-items: center; /* Выравнивание по вертикали */
+  background: #f9f9f9; /* Легкий фон для шапки */
+  border-bottom: 1px solid #ddd; /* Разделительная линия */
+}
+
 .modal.active .modal-content {
   transform: translateY(0); /* Конечное положение: в центре */
 }
 
 /* Кнопка закрытия (серый крестик) */
 .close-button {
-  position: absolute;
+  position: relative;
   top: 10px;
-  right: 10px;
-  width: 24px;
-  height: 24px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
   background: none;
   border: none;
   cursor: pointer;
@@ -64,4 +78,10 @@
 
 .close-button::after {
   transform: rotate(-45deg);
+}
+
+.modal-title {
+  font-size: 20px;
+  margin: 0;
+  color: #333
 }
