@@ -1,12 +1,12 @@
 .item_card {
-    background: #f9f9f9;
-    border-radius: 8px;
-    padding: 16px;
-    margin: 10px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 50%; /* Для трех колонок */
-  }
+  background: #f9f9f9;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 10px 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+}
   
   .item_image {
     max-width: 100%;
