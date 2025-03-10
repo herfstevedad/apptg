@@ -5,7 +5,7 @@ import './raitingModal.css';
 interface RatingModalProps {
   onClose: () => void;
   isOpen: boolean;
-  onLog: (message: string) => void; // Новый пропс для логирования
+  //onLog: (message: string) => void; // Новый пропс для логирования
 }
 
 const RatingModal: React.FC<RatingModalProps> = ({ onClose, isOpen }) => {

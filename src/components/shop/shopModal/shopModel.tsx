@@ -7,33 +7,33 @@ import ItemCard from '../itemCard/itemCard';
 interface ShopModalProps {
   onClose: () => void;
   isOpen: boolean;
-  onLog: (message: string) => void; // Новый пропс для логирования
+ // onLog: (message: string) => void; // Новый пропс для логирования
 }
 
-const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen, onLog }) => {
+const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen}) => {
     const modalRef = useRef<HTMLDivElement>(null);
     const [items, setItems] = useState<any[]>([]);
 
     useEffect(() => {
         if (isOpen) {
-          onLog('Магазин открыт'); // Логируем открытие магазина
+          //onLog('Магазин открыт'); // Логируем открытие магазина
           
           fetch('/data/shopItems.JSON')
             .then((res) => res.json())
             .then((data) => {
-              onLog(`Загружено ${data.length} товаров`); // Логируем количество товаров
+              //onLog(`Загружено ${data.length} товаров`); // Логируем количество товаров
               setItems(data); // Сохраняем данные в состояние
             })
             .catch((error) => {
-              onLog(`Ошибка загрузки данных: ${error.message}`); // Логируем ошибку
+             // onLog(`Ошибка загрузки данных: ${error.message}`); // Логируем ошибку
             });
         } else {
-          onLog('Магазин закрыт'); // Логируем закрытие магазина
+          //onLog('Магазин закрыт'); // Логируем закрытие магазина
         }
     }, [isOpen]);
 
     const handleBuy = (itemID: number) => {
-      onLog(`Покупка товара ${itemID}`); // Логируем покупку
+      //onLog(`Покупка товара ${itemID}`); // Логируем покупку
       alert(`Вы купили "${items.find(item => item.id === itemID)?.name}"`);
     }
 
