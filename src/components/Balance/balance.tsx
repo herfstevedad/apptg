@@ -5,7 +5,11 @@ import './balance.css';
 import { db } from '../back/fireBase'; // Импортируем из fireBase
 import { retrieveLaunchParams } from '@telegram-apps/sdk'
 
-function Balance() {
+interface BalanceProps {
+  onLog: (message: string) => void; // Функция для добавления логов
+}
+
+function Balance({ onLog }: BalanceProps) {
   const [balance, setBalance] = useState(0); // Баланс игрока
   const [tempBalance, setTempBalance] = useState(0); // Временный баланс для локального состояния
   const incomeRef = useRef<HTMLDivElement[]>([]); // Ссылка на элементы анимации дохода
@@ -21,14 +25,18 @@ function Balance() {
           if (docSnapshot.exists()) {
             const data = docSnapshot.data();
             if (data && data.balance !== undefined) {
+              onLog(`Загружен начальный баланс: ${data.balance}`); // Добавляем лог
               setBalance(data.balance); // Устанавливаем начальный баланс
               setTempBalance(data.balance); // Устанавливаем временный баланс
             }
           } else {
-            // Если пользователь не существует, создаем его
+            onLog('Документ пользователя не найден. Создаем новый...'); // Добавляем лог
             await setDoc(userDocRef, { balance: 0 }, { merge: true });
+            setBalance(0);
+            setTempBalance(0);
           }
         } catch (error) {
+          onLog('Ошибка загрузки баланса из Firestore.'); // Добавляем лог
           console.error('Ошибка загрузки баланса:', error);
         }
       }
@@ -40,6 +48,7 @@ function Balance() {
     const interval = setInterval(() => {
       setTempBalance((prevBalance) => {
         const newBalance = prevBalance + 1;
+        onLog(`Баланс увеличен: ${newBalance}`); // Добавляем лог
         addIncomeAnimation('+1'); // Добавляем анимацию дохода
         return newBalance;
       });
@@ -52,7 +61,9 @@ function Balance() {
           const userDocRef = doc(db, 'users', userId.toString());
           await setDoc(userDocRef, { balance: tempBalance }, { merge: true });
           console.log('Баланс успешно сохранен:', tempBalance);
+          onLog(`Баланс сохранен: ${tempBalance}`); // Добавляем лог
         } catch (error) {
+          onLog('Ошибка сохранения баланса при закрытии приложения.'); // Добавляем лог
           console.error('Ошибка сохранения баланса:', error);
         }
       }

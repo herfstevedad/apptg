@@ -1,0 +1,23 @@
+/* src/components/HelpButton/styles.css */
+.help_button {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 40px;
+    height: 40px;
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%; /* Круглая кнопка */
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1010; /* Выше модального окна */
+  }
+  
+  .help_button:hover {
+    background: #e0e0e0;
+  }

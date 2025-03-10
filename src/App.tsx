@@ -7,7 +7,8 @@ import ShopButton from './components/shop/shopButton/shopButton';
 import ShopModal from './components/shop/shopModal/shopModel';
 import RaitingButton from './components/raiting/raitingButton';
 import RaitingModal from './components/raiting/raitingModal';
-
+import HelpButton from './components/helpButton/helpButton';
+import { addLog, getLogs } from './services/logsService'
 
 import './App.css'
 import { addUserIfNotExists } from './components/back/addUser'
@@ -27,8 +28,11 @@ function App() {
  // };
 
   useEffect (() => {
+    addLog('Приложение запущено.')
     const initApp = async () => {
       try {
+
+        
 
         // Получаем данные пользователя Telegram
         const UserID = retrieveLaunchParams().tgWebAppData?.user?.id;
@@ -61,7 +65,9 @@ function App() {
 
   return (
     <div className="app">
-      <Balance /> 
+      <Balance onLog={addLog}/> 
+o
+      <HelpButton onLog={addLog}/>
 
       {/* Контейнер кнопок внизу */}
       <div className="bottom-buttons">
