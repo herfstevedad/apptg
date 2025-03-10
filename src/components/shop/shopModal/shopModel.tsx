@@ -18,7 +18,7 @@ const ShopModal: React.FC<ShopModalProps> = ({ onClose, isOpen, onLog }) => {
         if (isOpen) {
           onLog('Магазин открыт'); // Логируем открытие магазина
           
-          fetch('/data/shopItems.json')
+          fetch('/data/shopItems.JSON')
             .then((res) => res.json())
             .then((data) => {
               onLog(`Загружено ${data.length} товаров`); // Логируем количество товаров
