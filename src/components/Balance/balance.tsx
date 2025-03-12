@@ -2,7 +2,13 @@
 import { useState, useEffect, useRef } from 'react';
 import './balance.css';
 import { retrieveLaunchParams } from '@telegram-apps/sdk';
-import { saveUserData, setupAutoSave, setupSaveOnBlur, setupSaveOnUnload, loadFromLocalStorage } from '../../services/saveUserData';
+import { 
+  loadAndSaveToLocalStorage,
+  setupAutoSave,
+  setupSaveOnBlur,
+  setupSaveOnUnload,
+  saveToLocalStorage 
+} from '../../services/saveUserData';
 
 interface BalanceProps {
   onLog: (message: string) => void; // Функция для добавления логов 
@@ -20,35 +26,38 @@ function Balance({ onLog }: BalanceProps) {
       return;
     }
 
-    // Загрузка начальных данных из LocalStorage  
-    const initialData = loadFromLocalStorage(userId.toString());
-    if (initialData) {
-      setTempBalance(initialData.balance || 0);
-      setPurchases(initialData.purchases || []);
-      onLog('Загружено из LocalStorage:');
-    }
+    const stringUserId = userId.toString(); // Преобразуем userId в строку
+
+    // Загрузка данных из Firestore и запись в LocalStorage
+    const fetchInitialData = async () => {
+      const initialData = await loadAndSaveToLocalStorage(stringUserId);
+      if (initialData) {
+        setTempBalance(initialData.balance || 0); // Устанавливаем временный баланс
+        setPurchases(initialData.purchases || []); // Устанавливаем покупки
+        onLog('Данные загружены');
+      }
+    };
+
+    fetchInitialData();
 
     // Пассивный доход каждую секунду
     const incomeInterval = setInterval(() => {
       setTempBalance((prevBalance) => prevBalance + 1);
       addIncomeAnimation('1$');
+
+      // Сохраняем обновленные данные в LocalStorage
+      const updatedData = { balance: tempBalance + 1, purchases };
+      saveToLocalStorage(stringUserId, updatedData);
     }, 1000);
 
-    // Сохранение данных в LocalStorage при каждом изменении баланса
-    useEffect(() => {
-      if (userId) {
-        saveUserData(userId.toString(), { balance: tempBalance, purchases });
-      }
-    }, [userId, tempBalance, purchases]);
-
     // Автоматическое сохранение каждые 30 секунд
-    const cleanupAutoSave = setupAutoSave(userId.toString(), () => ({ balance: tempBalance, purchases }));
+    const cleanupAutoSave = setupAutoSave(stringUserId);
 
     // Сохранение при сворачивании приложения
-    const cleanupSaveOnBlur = setupSaveOnBlur(userId.toString(), () => ({ balance: tempBalance, purchases }));
+    const cleanupSaveOnBlur = setupSaveOnBlur(stringUserId);
 
     // Сохранение при закрытии вкладки
-    const cleanupSaveOnUnload = setupSaveOnUnload(userId.toString(), () => ({ balance: tempBalance, purchases }));
+    const cleanupSaveOnUnload = setupSaveOnUnload(stringUserId);
 
     return () => {
       clearInterval(incomeInterval);
@@ -57,6 +66,7 @@ function Balance({ onLog }: BalanceProps) {
       cleanupSaveOnUnload();
     };
   }, [userId]);
+
 
 
   // Функция для создания анимации дохода
