@@ -9,7 +9,6 @@ interface BalanceProps {
 }
 
 function Balance({ onLog }: BalanceProps) {
-  const [balance, setBalance] = useState(0); // Баланс игрока
   const [tempBalance, setTempBalance] = useState(0); // Временный баланс для локального состояния
   const [purchases, setPurchases] = useState<string[]>([]); // Информация о покупках
   const incomeRef = useRef<HTMLDivElement[]>([]); // Ссылка на элементы анимации дохода
@@ -24,9 +23,9 @@ function Balance({ onLog }: BalanceProps) {
     // Загрузка начальных данных из LocalStorage  
     const initialData = loadFromLocalStorage(userId.toString());
     if (initialData) {
-      setBalance(initialData.balance || 0);
       setTempBalance(initialData.balance || 0);
       setPurchases(initialData.purchases || []);
+      onLog('Загружено из LocalStorage:');
     }
 
     // Пассивный доход каждую секунду
