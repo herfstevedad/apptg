@@ -85,6 +85,8 @@ export function setupAutoSave(userId: string) {
     await saveLocalStorageToFirestore(userId); // Переносим данные из LocalStorage в Firestore
   };
 
+  autoSave();
+
   const interval = setInterval(() => {
     addLog('Запускаю таймер автоматического сохранения...');
     autoSaveTimeout = setTimeout(autoSave, 30000); // Вызываем сохранение каждые 30 секунд
