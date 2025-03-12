@@ -1,81 +1,64 @@
 // Balance.tsx
 import { useState, useEffect, useRef } from 'react';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
 import './balance.css';
-import { db } from '../back/fireBase'; // Импортируем из fireBase
-import { retrieveLaunchParams } from '@telegram-apps/sdk'
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
+import { saveUserData, setupAutoSave, setupSaveOnBlur, setupSaveOnUnload, loadFromLocalStorage } from '../../services/saveUserData';
 
 interface BalanceProps {
-  onLog: (message: string) => void; // Функция для добавления логов
+  onLog: (message: string) => void; // Функция для добавления логов 
 }
 
 function Balance({ onLog }: BalanceProps) {
   const [balance, setBalance] = useState(0); // Баланс игрока
   const [tempBalance, setTempBalance] = useState(0); // Временный баланс для локального состояния
+  const [purchases, setPurchases] = useState<string[]>([]); // Информация о покупках
   const incomeRef = useRef<HTMLDivElement[]>([]); // Ссылка на элементы анимации дохода
   const userId = retrieveLaunchParams().tgWebAppData?.user?.id; // ID пользователя (замените на реальный ID)
 
   useEffect(() => {
-    const fetchInitialBalance = async () => {
-      if (userId) {
-        try {
-          const userDocRef = doc(db, 'users', userId.toString());
-          const docSnapshot = await getDoc(userDocRef);
+    if (!userId) {
+      console.error('User ID отсутствует.');
+      return;
+    }
 
-          if (docSnapshot.exists()) {
-            const data = docSnapshot.data();
-            if (data && data.balance !== undefined) {
-              onLog(`Загружен начальный баланс: ${data.balance}`); // Добавляем лог
-              setBalance(data.balance); // Устанавливаем начальный баланс
-              setTempBalance(data.balance); // Устанавливаем временный баланс
-            }
-          } else {
-            onLog('Документ пользователя не найден. Создаем новый...'); // Добавляем лог
-            await setDoc(userDocRef, { balance: 0 }, { merge: true });
-            setBalance(0);
-            setTempBalance(0);
-          }
-        } catch (error) {
-          onLog('Ошибка загрузки баланса из Firestore.'); // Добавляем лог
-          console.error('Ошибка загрузки баланса:', error);
-        }
-      }
-    };
-
-    fetchInitialBalance();
+    // Загрузка начальных данных из LocalStorage  
+    const initialData = loadFromLocalStorage(userId.toString());
+    if (initialData) {
+      setBalance(initialData.balance || 0);
+      setTempBalance(initialData.balance || 0);
+      setPurchases(initialData.purchases || []);
+    }
 
     // Пассивный доход каждую секунду
-    const interval = setInterval(() => {
-      setTempBalance((prevBalance) => {
-        const newBalance = prevBalance + 1;
-        onLog(`Баланс увеличен: ${newBalance}`); // Добавляем лог
-        addIncomeAnimation('+1'); // Добавляем анимацию дохода
-        return newBalance;
-      });
+    const incomeInterval = setInterval(() => {
+      setTempBalance((prevBalance) => prevBalance + 1);
+      addIncomeAnimation('1$');
     }, 1000);
 
-    // Обработка закрытия приложения
-    const handleAppClose = async () => {
-      if (userId && tempBalance !== balance) {
-        try {
-          const userDocRef = doc(db, 'users', userId.toString());
-          await setDoc(userDocRef, { balance: tempBalance }, { merge: true });
-          console.log('Баланс успешно сохранен:', tempBalance);
-          onLog(`Баланс сохранен: ${tempBalance}`); // Добавляем лог
-        } catch (error) {
-          onLog('Ошибка сохранения баланса при закрытии приложения.'); // Добавляем лог
-          console.error('Ошибка сохранения баланса:', error);
-        }
+    // Сохранение данных в LocalStorage при каждом изменении баланса
+    useEffect(() => {
+      if (userId) {
+        saveUserData(userId.toString(), { balance: tempBalance, purchases });
       }
-    };
+    }, [userId, tempBalance, purchases]);
 
-    window.tgWebApp?.onEvent('close', handleAppClose);
+    // Автоматическое сохранение каждые 30 секунд
+    const cleanupAutoSave = setupAutoSave(userId.toString(), () => ({ balance: tempBalance, purchases }));
+
+    // Сохранение при сворачивании приложения
+    const cleanupSaveOnBlur = setupSaveOnBlur(userId.toString(), () => ({ balance: tempBalance, purchases }));
+
+    // Сохранение при закрытии вкладки
+    const cleanupSaveOnUnload = setupSaveOnUnload(userId.toString(), () => ({ balance: tempBalance, purchases }));
 
     return () => {
-      clearInterval(interval); // Очищаем интервал при размонтировании компонента
-      window.tgWebApp?.offEvent('close', handleAppClose); // Удаляем обработчик события close
+      clearInterval(incomeInterval);
+      cleanupAutoSave();
+      cleanupSaveOnBlur();
+      cleanupSaveOnUnload();
     };
-  }, [userId, balance]);
+  }, [userId]);
+
 
   // Функция для создания анимации дохода
   const addIncomeAnimation = (value: string) => {
