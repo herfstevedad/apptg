@@ -1,5 +1,4 @@
 // src/components/HelpButton/helpButton.tsx
-import React from 'react';
 import './styles.css';
 
 interface HelpButtonProps {

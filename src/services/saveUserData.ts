@@ -1,13 +1,14 @@
 // src/services/saveUserData.ts
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../components/back/fireBase';
+import { addLog } from './logsService';
 
 // Сохранение данных в LocalStorage
 export async function saveToLocalStorage(userId: string, data: any) {
   try {
     const userKey = `user_${userId}`;
     localStorage.setItem(userKey, JSON.stringify(data));
-    console.log('Данные успешно сохранены в LocalStorage:', data);
+    addLog(`Данные успешно сохранены в LocalStorage: ${JSON.stringify(data)}`);
   } catch (error) {
     console.error('Ошибка сохранения данных в LocalStorage:', error);
   }
@@ -21,18 +22,18 @@ export async function loadAndSaveToLocalStorage(userId: string): Promise<any | n
 
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
-      console.log('Данные успешно загружены из Firestore:', data);
+      addLog(`Данные успешно загружены из Firestore: ${JSON.stringify(data)}`);
       saveToLocalStorage(userId, data); // Записываем данные в LocalStorage
       return data;
     } else {
-      console.warn('Документ пользователя не найден. Создаем новый...');
+      addLog('Документ пользователя не найден. Создаем новый...');
       const defaultData = { balance: 0, purchases: [] };
       await setDoc(userDocRef, defaultData, { merge: true }); // Создаем документ с начальными данными
       saveToLocalStorage(userId, defaultData); // Записываем начальные данные в LocalStorage
       return defaultData;
     }
   } catch (error) {
-    console.error('Ошибка загрузки данных из Firestore:', error);
+    addLog(`Ошибка загрузки данных из Firestore `);
     return null;
   }
 }
@@ -42,9 +43,14 @@ export function loadFromLocalStorage(userId: string): any | null {
   try {
     const userKey = `user_${userId}`;
     const storedData = localStorage.getItem(userKey);
+    if (storedData) {
+      addLog(`Данные успешно загружены из LocalStorage: ${storedData}`); // Логируем через addLog
+    } else {
+      addLog('Данные отсутствуют в LocalStorage.'); // Логируем через addLog
+    }
     return storedData ? JSON.parse(storedData) : null;
   } catch (error) {
-    console.error('Ошибка загрузки данных из LocalStorage:', error);
+    addLog(`Ошибка загрузки данных из LocalStorage`); // Логируем ошибку
     return null;
   }
 }
@@ -59,12 +65,13 @@ export async function saveLocalStorageToFirestore(userId: string) {
       const data = JSON.parse(storedData);
       const userDocRef = doc(db, 'users', userId);
       await setDoc(userDocRef, data, { merge: true });
-      console.log('Данные успешно перенесены из LocalStorage в Firestore:', data);
+      addLog(`Данные успешно перенесены из LocalStorage в Firestore: ${JSON.stringify(data)}`);
     } else {
-      console.warn('Данные отсутствуют в LocalStorage.');
+      addLog('Данные отсутствуют в LocalStorage. Нечего сохранять.');
     }
   } catch (error) {
     console.error('Ошибка переноса данных из LocalStorage в Firestore:', error);
+    addLog(`Ошибка переноса данных из LocalStorage в Firestore:`)
   }
 }
 
@@ -73,14 +80,17 @@ export function setupAutoSave(userId: string) {
   let autoSaveTimeout: NodeJS.Timeout | null = null;
 
   const autoSave = async () => {
-    await saveLocalStorageToFirestore(userId);
+    addLog('Срабатывает автоматическое сохранение...');
+    await saveLocalStorageToFirestore(userId); // Переносим данные из LocalStorage в Firestore
   };
 
   const interval = setInterval(() => {
-    autoSaveTimeout = setTimeout(autoSave, 30000); // Переносим данные каждые 30 секунд
+    addLog('Запускаю таймер автоматического сохранения...');
+    autoSaveTimeout = setTimeout(autoSave, 30000); // Вызываем сохранение каждые 30 секунд
   }, 30000);
 
   return () => {
+    addLog('Очищаю интервал автоматического сохранения...');
     clearInterval(interval);
     if (autoSaveTimeout) clearTimeout(autoSaveTimeout);
   };
