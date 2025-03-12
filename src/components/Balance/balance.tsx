@@ -42,14 +42,19 @@ function Balance({ onLog }: BalanceProps) {
 
     // Пассивный доход каждую секунду
     const incomeInterval = setInterval(() => {
-      setTempBalance((prevBalance) => prevBalance + 1);
-      addIncomeAnimation('1$');
+      setTempBalance((prevBalance) => {
+        const newBalance = prevBalance + 1;
+        onLog(`Баланс увеличен: ${newBalance}$`);
 
-      // Сохраняем обновленные данные в LocalStorage
-      const updatedData = { balance: tempBalance + 1, purchases };
-      saveToLocalStorage(stringUserId, updatedData);
+        addIncomeAnimation(`+${1}$`);
+
+
+        // Сохраняем обновленные данные в LocalStorage
+        saveToLocalStorage(stringUserId, newBalance, purchases);
+
+        return newBalance;
+      });
     }, 1000);
-
     // Автоматическое сохранение каждые 30 секунд
     const cleanupAutoSave = setupAutoSave(stringUserId);
 

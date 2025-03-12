@@ -4,13 +4,14 @@ import { db } from '../components/back/fireBase';
 import { addLog } from './logsService';
 
 // Сохранение данных в LocalStorage
-export async function saveToLocalStorage(userId: string, data: any) {
+export async function saveToLocalStorage(userId: string, balance: number, purchases: string[]) {
   try {
     const userKey = `user_${userId}`;
+    const data = { balance, purchases }; // Создаем объект данных
     localStorage.setItem(userKey, JSON.stringify(data));
     addLog(`Данные успешно сохранены в LocalStorage: ${JSON.stringify(data)}`);
   } catch (error) {
-    console.error('Ошибка сохранения данных в LocalStorage:', error);
+    addLog(`Ошибка сохранения данных в LocalStorage`);
   }
 }
 
@@ -23,13 +24,13 @@ export async function loadAndSaveToLocalStorage(userId: string): Promise<any | n
     if (docSnapshot.exists()) {
       const data = docSnapshot.data();
       addLog(`Данные успешно загружены из Firestore: ${JSON.stringify(data)}`);
-      saveToLocalStorage(userId, data); // Записываем данные в LocalStorage
+      saveToLocalStorage(userId, data.balance || 0, data.purchases || []); // Записываем данные в LocalStorage
       return data;
     } else {
       addLog('Документ пользователя не найден. Создаем новый...');
       const defaultData = { balance: 0, purchases: [] };
       await setDoc(userDocRef, defaultData, { merge: true }); // Создаем документ с начальными данными
-      saveToLocalStorage(userId, defaultData); // Записываем начальные данные в LocalStorage
+      saveToLocalStorage(userId, defaultData.balance, defaultData.purchases); // Записываем начальные данные в LocalStorage
       return defaultData;
     }
   } catch (error) {
