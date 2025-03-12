@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { retrieveLaunchParams } from '@telegram-apps/sdk'
+import { retrieveLaunchParams, closingBehavior } from '@telegram-apps/sdk'
 
 import Loader from './components/loader/loader'
 import Balance from './components/Balance/balance'
@@ -63,6 +63,11 @@ function App() {
 
   if (isloading) {
     return <Loader />
+  }
+
+  if (closingBehavior.mount.isAvailable()) {
+    closingBehavior.mount();
+    closingBehavior.isMounted();
   }
 
   return (
