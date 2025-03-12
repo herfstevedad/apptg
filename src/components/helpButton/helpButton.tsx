@@ -3,7 +3,7 @@ import React from 'react';
 import './styles.css';
 
 interface HelpButtonProps {
-  onClick: () => void; // Функция для открытия модального окна
+  onClick: React.MouseEventHandler<HTMLButtonElement>; // Функция для открытия модального окна
 }
 
 const HelpButton: React.FC<HelpButtonProps> = ({ onClick }) => {
