@@ -3,7 +3,7 @@ import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { db } from '../components/back/fireBase';
 
 // Сохранение данных в LocalStorage
-export function saveToLocalStorage(userId: string, data: any) {
+export async function saveToLocalStorage(userId: string, data: any) {
   try {
     const userKey = `user_${userId}`;
     localStorage.setItem(userKey, JSON.stringify(data));
